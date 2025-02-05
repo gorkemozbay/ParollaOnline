@@ -5,6 +5,7 @@ import { Box, Button, Container, Stack } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
+import Timer from './components/Timer';
 
 const Homepage = () => {
 
@@ -64,6 +65,8 @@ const Homepage = () => {
                     <Button variant="contained" sx={{ width: 310, backgroundColor: theme => theme.palette.colors.green }}>
                         Quickplay
                     </Button>
+
+                    <Timer />
                 </Stack>
             </Box>
         </Container>
