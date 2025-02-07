@@ -1,29 +1,19 @@
 import { useTheme } from '@mui/material/styles';
-import { useEffect } from 'react';
 import React from 'react';
 import { Box, Stack, Avatar, Button, Typography } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import { Link } from 'react-router-dom';
 
 const CreateLobbyPage = () => {
-    const roomNumber = 12345; // Example room number
-    const currentPlayers = 7; // Example number of players
-    const maxPlayers = 10; // Maximum number of players
+    
     const theme = useTheme();
-    useEffect(() => {
-        // Set the background color of the body element
-        document.body.style.backgroundColor = theme.palette.background.default;
 
-        // Cleanup function to reset the background color when the component unmounts
-        return () => {
-            document.body.style.backgroundColor = '';
-        };
-    }, []);
+    const roomNumber = 12345; 
+    const currentPlayers = 7; 
+    const maxPlayers = 10; 
 
-    // Example usernames (You can replace this with actual dynamic data)
     const usernames = Array.from({ length: currentPlayers }, (_, index) => `Player${index + 1}`);
 
-    // Generate player avatars with usernames
     const playerAvatars = usernames.map((username, index) => (
         <Box key={index} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Avatar sx={{ width: 70, height: 70 }}>
@@ -34,9 +24,9 @@ const CreateLobbyPage = () => {
             </Typography>
         </Box>
     ));
+    
     return (
         <Box sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            {/* Room number box with two buttons below */}
             <Box
                 sx={{
                     backgroundColor: theme => theme.palette.background.default,
