@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Homepage from './Homepage';
 import CreateLobbyPage from './CreateLobbyPage';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import MainGameLayout from './layouts/MainGameLayout';
 
 const theme = createTheme({
   palette: {
@@ -23,6 +24,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Homepage/>}/>
           <Route path="/create-lobby" element={<CreateLobbyPage/>}/>
+          <Route path="/quick-play" element={<MainGameLayout/>}/>
         </Routes>
       </Router>
     </ThemeProvider>

@@ -40,6 +40,7 @@ const Homepage = () => {
                 <Button 
                     variant="contained" 
                     sx={{ width: 600, backgroundColor: theme.palette.colors.green }}
+                    onClick={() => {navigate('/quick-play')}}
                 >
                     Quickplay
                 </Button>

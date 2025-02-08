@@ -2,7 +2,7 @@ import { height } from '@mui/system';
 import React, { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
 
-const Timer = () => {
+function Timer() {
     const timerInSeconds = 10;
     const [seconds, setSeconds] = useState(timerInSeconds);
     const [isTimerActive, setIsTimerActive] = useState(false);
