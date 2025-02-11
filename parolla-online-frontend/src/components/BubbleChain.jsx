@@ -1,20 +1,35 @@
 import { Box } from "@mui/material";
 import Bubble from "./Bubble";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BubbleState from "../enums/BubbleState";
-import { Button } from "@mui/material";
 import BubbleModel from "../models/BubbleModel";
-import { useEffect } from "react";
 
 function BubbleChain() {
+  const [radius, setRadius] = useState(200); // Default radius
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const totalBubbles = 28;
+  const angleStep = (2 * Math.PI) / totalBubbles;
+  const bubbleSize = 60;
+
   const generateBubbles = () => {
-    return Array(28)
+    return Array(totalBubbles)
       .fill(null)
       .map((_, index) => new BubbleModel(index));
   };
 
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [bubbles, setBubbles] = useState(generateBubbles);
+
+  // Dynamically update radius based on screen size
+  useEffect(() => {
+    const updateRadius = () => {
+      const minSize = Math.min(window.innerWidth, window.innerHeight);
+      setRadius(minSize / 2.3); // Adjust radius dynamically
+    };
+
+    updateRadius();
+    window.addEventListener("resize", updateRadius);
+    return () => window.removeEventListener("resize", updateRadius);
+  }, []);
 
   useEffect(() => {
     const interval  = setInterval(() => {
@@ -24,40 +39,57 @@ function BubbleChain() {
             return newIndex;
         })
     }, 1000);
-
-
-
   }, []);
 
   useEffect(() => {
     setBubbles((prevBubbles) => {
         const newBubbles = [...prevBubbles];
         newBubbles[currentIndex].bubbleState = BubbleState.PASS; 
-        console.log("Current Index: ", currentIndex);
         return newBubbles;
       });
   }, [currentIndex])
 
-  const updateCurrentIndex = () => {};
-
   return (
     <Box
       sx={{
+        position: "fixed", // Prevents scrolling
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: "100vw",
+        height: "100vh",
+        overflow: "hidden", // Prevents scrolling
         display: "flex",
-        flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        gap: "30px",
       }}
     >
-      {bubbles.map((bubble, index) => (
-        <Bubble
-          key={index}
-          letter={bubble.letter}
-          size={100}
-          bubbleState={bubble.bubbleState}
-        />
-      ))}
+      <Box
+        sx={{
+          position: "relative",
+          width: `${2 * radius}px`,
+          height: `${2 * radius}px`,
+        }}
+      >
+        {bubbles.map((bubble, index) => {
+          var angle = index * angleStep - (Math.PI / 2); //to take the first bubble top middle
+          const x = radius + radius * Math.cos(angle) - (bubbleSize/2); // Center bubbles
+          const y = radius + radius * Math.sin(angle) - (bubbleSize/2);
+
+          return (
+            <Box
+              key={index}
+              sx={{
+                position: "absolute",
+                left: `${x}px`,
+                top: `${y}px`,
+              }}
+            >
+              <Bubble letter={bubble.letter} size={bubbleSize} bubbleState={bubble.bubbleState} />
+            </Box>
+          );
+        })}
+      </Box>
     </Box>
   );
 }
