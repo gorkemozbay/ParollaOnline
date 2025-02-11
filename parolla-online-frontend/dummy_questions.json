@@ -1,0 +1,92 @@
+{
+    "A": [
+      {"soru": "Hangi hayvan 'ormanların kralı' olarak bilinir?", "cevap": "Aslan"}
+    ],
+    "B": [
+      {"soru": "Hangi spor dalında 'steps' terimi kullanılır?", "cevap": "Basketbol"}
+    ],
+    "C": [
+      {"soru": "Ünlü çizgi film karakteri Bambi hangi hayvandır?", "cevap": "Ceylan"}
+    ],
+    "Ç": [
+      {"soru": "Gluten tüketimi ile ilgili hastalık hangisidir?", "cevap": "Çölyak"}
+    ],
+    "D": [
+      {"soru": "Hangi ünlü yazar 'Suç ve Ceza' adlı eseri yazmıştır?", "cevap": "Dostoevsky"}
+    ],
+    "E": [
+      {"soru": "Barış Manço'nun sevilen şarkısıyla anılan hayvan hangisidir?", "cevap": "Eşek"}
+    ],
+    "F": [
+      {"soru": "Hangi spor dalında 'faul' terimi kullanılır?", "cevap": "Futbol"}
+    ],
+    "G": [
+      {"soru": "Amaç kelimesi ile eşanlamlı olan kelime?", "cevap": "Gaye"}
+    ],
+    "H": [
+      {"soru": "İlyada kimin eseridir?", "cevap": ["Homeros", "Homer"]},
+      {"soru": "Anıl'ın eşinin ne fobisi vardır?", "cevap": "Halay"}
+    ],
+    "I": [
+      {"soru": "Ünlü Barış Akarsu şarkısı?", "cevap": "Islak Islak"}
+    ],
+    "İ": [
+      {"soru": "Hangi ülke ünlü çeşmesiyle tanınır?", "cevap": "İtalya"}
+    ],
+    "J": [
+      {"soru": "Şerit perde anlamında gelen kelime?", "cevap": "Jaluzi"},
+      {"soru": "Hangi yayıncı Görkem ve Tuana'nın tartışma konusu olmuştur?", "cevap": "Jahrein"}
+    ],
+    "K": [
+      {"soru": "Hangi ünlü yazar 'Dönüşüm' adlı eseri yazmıştır?", "cevap": "Kafka"}
+    ],
+    "L": [
+      {"soru": "Hangi yiyecek kemik erimesine iyi gelir?", "cevap": "Lor Peyniri"}
+    ],
+    "M": [
+      {"soru": "Komuta kontrol ekibi hangi eşya yerleşimi hakkında çözüme ulaşamamıştır?", "cevap": "Masa"},
+      {"soru": "Hangi ünlü yazar 'Hastalık Hastası' adlı eseri yazmıştır?", "cevap": "Molière"}
+    ],
+    "N": [
+      {"soru": "Burak hangi ülkeden gelmiştir?", "cevap": "Norveç"},
+      {"soru": "Hangi isim 'ağlayan, feryat eden' anlamındadır'?", "cevap": "Nalan"}
+    ],
+    "O": [
+      {"soru": "Milli sporcumuz Mete Gazoz hangi dalga madalyalar kazanmıştır?", "cevap": "Okçuluk"}
+    ],
+    "Ö": [
+      {"soru": "Bir ısırık ile kimin hayatı değişmiştir?", "cevap": "Örümcek Adam"}
+    ],
+    "P": [
+      {"soru": "Ünlü filozof?", "cevap": "Platon"}
+    ],
+    "R": [
+      {"soru": "Harry Potter karakterinin en yakın erkek arkadaşının ismi?", "cevap": "Ron"},
+      {"soru": "Onur'un eskiden odada müzik açtığı olayın adı?", "cevap": "Radar fm"}
+    ],
+    "S": [
+      {"soru": "Hasibe Eren'in oynadığı eskiden yayınlanan ünlü dizi?", "cevap": "Sıdıka"}
+    ],
+    "Ş": [
+      {"soru": "Hardaliye neyin alkolsüz halidir?", "cevap": "Şarap"}
+    ],
+    "T": [
+      {"soru": "Kalp atım hızının dakikada 100'ün üzerinde olması durumuna ne denir?", "cevap": "Taşikardi"},
+      {"soru": "Görkem'in yaptığı spor?", "cevap": "Tekvando"}
+    ],
+    "U": [
+      {"soru": "Hangi prensesin eline dikiş iğnesi batar?", "cevap": "Uyuyan Güzel"}
+    ],
+    "Ü": [
+      {"soru": "Yılbaşında masa altına girilerek yenen ve dilek tutulan yiyecek hangisidir?", "cevap": "Üzüm"}
+    ],
+    "V": [
+      {"soru": "Kaplumbağa olarak da bilinen Volkswagen arabasının halk arasındaki adı?", "cevap": "Vosvos"}
+    ],
+    "Y": [
+      {"soru": "Tutumlu olmanın öneminin vurgulandığı deyimdeki eşya nedir?", "cevap": "Yorgan"}
+    ],
+    "Z": [
+      {"soru": "Yalın'ın ünlü şarkısı?", "cevap": "Zalim"}
+    ]
+  }
