@@ -1,5 +1,6 @@
 import BubbleChain from "../components/BubbleChain";
 import Timer from "../components/Timer";
+import QuestionHolder from "../components/QuestionHolder";
 
 
 function MainGameLayout() {
@@ -8,13 +9,10 @@ function MainGameLayout() {
 
     return (
         <>
-        <BubbleChain></BubbleChain>
+            <Timer initialSeconds={20}></Timer>
+            <BubbleChain></BubbleChain>
+            <QuestionHolder></QuestionHolder>
         {/*  Opponent Bubble  */}
-        {/*  Bubble  */}
-        <Timer 
-            initialSeconds={20}
-        ></Timer>
-        {/*  Questions  */}
         {/*  Answer  */}
         </>
     )

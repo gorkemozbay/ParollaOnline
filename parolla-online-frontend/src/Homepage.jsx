@@ -18,7 +18,7 @@ const Homepage = () => {
             </Box>
             <Box
                 component="img"
-                src="/logo_ai2_transparent.png"
+                src="images/logo_ai2_transparent.png"
                 alt="Logo"
                 sx={{ width: "auto", height: "320px", marginBottom: "100px", display: "block", marginLeft: "auto", marginRight: "auto" }}
             >
