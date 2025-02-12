@@ -35,7 +35,7 @@ function BubbleChain() {
     const interval  = setInterval(() => {
         setCurrentIndex((prevIndex) => {
             //console.log("Current Index: ", prevIndex);
-            const newIndex = (prevIndex + 1)
+            const newIndex = (prevIndex + 1) % totalBubbles;
             return newIndex;
         })
     }, 1000);

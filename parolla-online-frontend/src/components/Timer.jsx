@@ -1,53 +1,40 @@
-import { height } from '@mui/system';
 import React, { useState, useEffect } from 'react';
-import { Button } from '@mui/material';
+import { Typography } from '@mui/material';
 
-function Timer() {
-    const timerInSeconds = 10;
-    const [seconds, setSeconds] = useState(timerInSeconds);
-    const [isTimerActive, setIsTimerActive] = useState(false);
+function Timer( {initialSeconds} ) {
+
+    const [seconds, setSeconds] = useState(initialSeconds);
+    const [startTime, setStartTime] = useState(Date.now());
 
     useEffect(() => {
-        let interval;
-        if (isTimerActive && seconds > 0) {
-            interval = setInterval(() => { //javascript's own method that runs in intervals
-                setSeconds((prevSeconds) => prevSeconds - 1);
-            }, 1000);
-        }
-        else if (seconds === 0) {
-            clearInterval(interval);
-        }
+        
+        const interval = setInterval(() => {
+            const elapsedTime = Date.now() - startTime;
+            const updatedTime = Math.max(0, initialSeconds - Math.floor(elapsedTime / 1000));
+            setSeconds(updatedTime);
+        }, 100);
+
         return () => clearInterval(interval);
 
-    }, [isTimerActive, seconds]);
+    }, [startTime, initialSeconds])
 
-
-    const toggleTimer = () => {
-        setIsTimerActive(!isTimerActive);
-    }
-
-    const resetTimer = () => {
-        setIsTimerActive(false);
-        setSeconds(timerInSeconds);
-    }
-
-    // Format time as mm:ss
     const formatTime = (secs) => {
         const minutes = Math.floor(secs / 60);
         const seconds = secs % 60;
         return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    };
+    }
 
     return (
-        <div style={{ textAlign: 'center', padding: '20px' }}>
-            <h1>{formatTime(seconds)}</h1>
-            {/*<Button variant="contained" onClick={toggleTimer}>
-                {isTimerActive ? 'Pause' : 'Start'}
-            </Button>
-            <Button variant="contained" onClick={resetTimer}>
-                Reset
-            </Button>*/}
-        </div>
-    );
+        <Typography
+            variant="h2"
+            sx={{
+                position: "absolute",
+                bottom: "50px",
+                left: "50px",
+                color: seconds <= 10 ? "red" : "black",
+                textShadow: "0px 0px 10px rgba(0, 0, 0, 0.25)"
+            }}
+        >{formatTime(seconds)}</Typography>
+    )
 };
 export default Timer;
