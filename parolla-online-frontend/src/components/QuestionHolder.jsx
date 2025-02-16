@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Typography, Box, Button, Stack } from '@mui/material';
-
+import QuestionInput from  "../components/QuestionInput";
+import languageENG from '../languageENG.json';
+import languageTR from '../languageTR.json';
+import { useSelector } from "react-redux";
 
 const turkishAlphabet = [
     "A", "B", "C", "Ç", "D", "E", "F", "G", "H", "I", "İ", "J", "K", "L", "M", "N", "O", "Ö", 
@@ -9,10 +12,13 @@ const turkishAlphabet = [
 
 function QuestionHolder() {
 
+    const languageChoice = useSelector((state) => state.language.language);
+    const language = languageChoice === "TR" ? languageTR : languageENG;
+    
     const [questions, setQuestions] = useState();
     const [currentQuestion, setCurrentQuestion] = useState();
     const questionIndex = useRef(0);
-
+    
     useEffect(() => {
         fetch("/data/dummy_questions.json")
             .then((response) => response.json())
@@ -43,7 +49,7 @@ function QuestionHolder() {
                 color: "black",
                 transform: "translate(-50%, -50%)",
                 textAlign: "center",
-                width: "100%",
+                width: "35%",
             }}
         >
             <Typography
@@ -54,26 +60,27 @@ function QuestionHolder() {
             > 
                 {currentQuestion}    
             </Typography>
-            <Stack spacing={1} direction="row" alignItems="center" justifyContent="center">
+            <QuestionInput />
+            <Stack spacing={1} direction="row" alignItems="center" justifyContent="center" sx={{marginTop: 2}}>
                 <Button
                     variant="contained"
                     sx={{ 
-                        width: 200, 
-                        backgroundColor: "blue", 
+                        width: 150, 
+                        backgroundColor: "black", 
                         marginTop: 5
                     }}
                     onClick={() => handleNextClick()}
-                > BACK
+                > {language.questionHolder.pass}
                 </Button>
                 <Button
                     variant="contained"
                     sx={{ 
-                        width: 200, 
-                        backgroundColor: "blue", 
+                        width: 150, 
+                        backgroundColor: "black", 
                         marginTop: 5
                     }}
                     onClick={() => handleNextClick()}
-                > NEXT
+                > {language.questionHolder.answer}
                 </Button>
             </Stack>
 

@@ -3,6 +3,8 @@ import Homepage from './Homepage';
 import CreateLobbyPage from './CreateLobbyPage';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import MainGameLayout from './layouts/MainGameLayout';
+import store from './redux/store';
+import { Provider } from 'react-redux';
 
 const theme = createTheme({
   palette: {
@@ -19,15 +21,17 @@ const theme = createTheme({
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Homepage/>}/>
-          <Route path="/create-lobby" element={<CreateLobbyPage/>}/>
-          <Route path="/quick-play" element={<MainGameLayout/>}/>
-        </Routes>
-      </Router>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/create-lobby" element={<CreateLobbyPage />} />
+            <Route path="/quick-play" element={<MainGameLayout />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </Provider>
   );
 };
 
