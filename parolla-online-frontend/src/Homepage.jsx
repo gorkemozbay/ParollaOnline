@@ -1,20 +1,44 @@
-import React from 'react';
+import { React, useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, Stack, IconButton } from '@mui/material';
+import { Box, Button, Stack, IconButton, Select, MenuItem} from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
+import languageENG from './languageENG';
+import languageTR from './languageTR';
+import { useDispatch, useSelector } from "react-redux";
+import { setLanguage } from "./redux/languageSlice";
 
 const Homepage = () => {
 
     const theme = useTheme();
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
+    const languageChoice = useSelector((state) => state.language.language);
+    const [language, setLanguageData] = useState(languageENG);
+
+    useEffect(() => {
+        setLanguageData(languageChoice === "TR" ? languageTR : languageENG);
+    }, [languageChoice]);
+
     return (
         <>
             <Box position="absolute" top={16} left={16}>
                 <IconButton>
-                    <SettingsIcon/>
+                    <SettingsIcon />
                 </IconButton>
+            </Box>
+            <Box position="absolute" top={16} right={16}>
+                <Select
+                    value={languageChoice}
+                    onChange={(e) => dispatch(setLanguage(e.target.value))}
+                    displayEmpty
+                    variant="outlined"
+                    sx={{ height: 35, maxWidth: 100, backgroundColor: "white" }}
+                >
+                    <MenuItem value="ENG">ENG</MenuItem>
+                    <MenuItem value="TR">TR</MenuItem>
+                </Select>
             </Box>
             <Box
                 component="img"
@@ -24,25 +48,25 @@ const Homepage = () => {
             >
             </Box>
             <Stack spacing={1} direction="column" alignItems="center" justifyContent="center">
-                <Button 
-                    variant="contained" 
+                <Button
+                    variant="contained"
                     sx={{ width: 600, backgroundColor: theme.palette.colors.blue }}
-                    onClick={() => {navigate('/create-lobby')}}
+                    onClick={() => { navigate('/create-lobby') }}
                 >
-                    Create Lobby!
+                    {language.homepage.createLobbyButton}
                 </Button>
-                <Button 
-                    variant="contained" 
+                <Button
+                    variant="contained"
                     sx={{ width: 600, backgroundColor: theme.palette.colors.purple }}
                 >
-                    Join Lobby!
+                    {language.homepage.joinLobbyButton}
                 </Button>
-                <Button 
-                    variant="contained" 
+                <Button
+                    variant="contained"
                     sx={{ width: 600, backgroundColor: theme.palette.colors.green }}
-                    onClick={() => {navigate('/quick-play')}}
+                    onClick={() => { navigate('/quick-play') }}
                 >
-                    Quickplay
+                    {language.homepage.quickplay}
                 </Button>
             </Stack>
         </>

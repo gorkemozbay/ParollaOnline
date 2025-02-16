@@ -1,0 +1,22 @@
+{
+    "homepage": {
+        "createLobbyButton": "Oda yarat!",
+        "joinLobbyButton": "Odaya katıl!",
+        "quickplay": "Hızlı oyna!"
+    },
+    "createLobbyPage": {
+        "roomNumber": "Oda Numarası",
+        "copy": "Kopyala",
+        "share": "Paylaş",
+        "goBack": "Geri",
+        "settings": "Ayarlar",
+        "startGame": "Oyuna Başla"
+    }, 
+    "questionInput": {
+        "answerTextFieldLabel": "Cevap"
+    },
+    "questionHolder": {
+        "pass": "PAS",
+        "answer": "Cevapla"
+    }
+}

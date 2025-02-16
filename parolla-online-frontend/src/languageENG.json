@@ -1,0 +1,22 @@
+{
+    "homepage": {
+        "createLobbyButton": "Create Lobby!",
+        "joinLobbyButton": "Join Lobby!",
+        "quickplay": "Quickplay!"
+    },
+    "createLobbyPage": {
+        "roomNumber": "Room Number",
+        "copy": "Copy",
+        "share": "Share",
+        "goBack": "Go Back",
+        "settings": "Settings",
+        "startGame": "Start Game"
+    }, 
+    "questionInput": {
+        "answerTextFieldLabel": "Your Answer"
+    },
+    "questionHolder": {
+        "pass": "PASS",
+        "answer": "Answer"
+    }
+}

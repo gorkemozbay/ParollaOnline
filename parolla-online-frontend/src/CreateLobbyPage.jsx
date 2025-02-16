@@ -3,9 +3,15 @@ import React from 'react';
 import { Box, Stack, Avatar, Button, Typography } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import { Link } from 'react-router-dom';
+import languageENG from "./languageENG.json";
+import languageTR from "./languageTR.json";
+import { useSelector } from "react-redux";
 
 const CreateLobbyPage = () => {
     
+    const languageChoice = useSelector((state) => state.language.language);
+    const language = languageChoice === "TR" ? languageTR : languageENG;
+
     const theme = useTheme();
 
     const roomNumber = 12345; 
@@ -42,7 +48,7 @@ const CreateLobbyPage = () => {
                 }}
             >
                 <Typography variant="h6" sx={{ color: theme => theme.palette.colors.blue }}>
-                    Room Number
+                   {language.createLobbyPage.roomNumber}
                 </Typography>
 
                 <Typography variant="h4" mb={1} sx={{ color: theme => theme.palette.colors.blue }}>
@@ -52,10 +58,10 @@ const CreateLobbyPage = () => {
                 {/* Buttons below the room number */}
                 <Stack direction="row" spacing={4} justifyContent="center">
                     <Button variant="contained" sx={{ width: 100, backgroundColor: theme => theme.palette.colors.purple }}>
-                        Copy
+                        {language.createLobbyPage.copy}
                     </Button>
                     <Button variant="contained" sx={{ width: 100, backgroundColor: theme => theme.palette.colors.purple }}>
-                        Share
+                        {language.createLobbyPage.share}
                     </Button>
                 </Stack>
             </Box>
@@ -108,14 +114,14 @@ const CreateLobbyPage = () => {
             <Stack direction="row" spacing={2} justifyContent="center">
                 <Link to="/">
                     <Button variant="contained" sx={{ width: 150, borderRadius: 3, backgroundColor: theme => theme.palette.colors.green }}>
-                        Go Back
+                        {language.createLobbyPage.goBack}
                     </Button>
                 </Link>
                 <Button variant="contained" sx={{ width: 150, borderRadius: 3, backgroundColor: theme => theme.palette.colors.green }}>
-                    Settings
+                    {language.createLobbyPage.settings}
                 </Button>
                 <Button variant="contained" sx={{ width: 150, borderRadius: 3, backgroundColor: theme => theme.palette.colors.green }}>
-                    Start Game
+                    {language.createLobbyPage.startGame}
                 </Button>
             </Stack>
         </Box>
