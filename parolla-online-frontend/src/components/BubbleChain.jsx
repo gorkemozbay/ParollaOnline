@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import BubbleState from "../enums/BubbleState";
 import BubbleModel from "../models/BubbleModel";
 
-function BubbleChain() {
+function BubbleChain({ currentIndex, bubbleState }) {
   const [radius, setRadius] = useState(200); // Default radius
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [start, setStart] = useState(true);
   const totalBubbles = 28;
   const angleStep = (2 * Math.PI) / totalBubbles;
   const bubbleSize = 60;
@@ -32,22 +32,19 @@ function BubbleChain() {
   }, []);
 
   useEffect(() => {
-    const interval  = setInterval(() => {
-        setCurrentIndex((prevIndex) => {
-            //console.log("Current Index: ", prevIndex);
-            const newIndex = (prevIndex + 1) % totalBubbles;
-            return newIndex;
-        })
-    }, 1000);
-  }, []);
+    if (start) {
+      setStart(false);
+      return;
+    }
 
-  useEffect(() => {
+    console.log("Index: ", currentIndex);
     setBubbles((prevBubbles) => {
-        const newBubbles = [...prevBubbles];
-        newBubbles[currentIndex].bubbleState = BubbleState.PASS; 
-        return newBubbles;
-      });
-  }, [currentIndex])
+      const newBubbles = [...prevBubbles];
+      console.log((currentIndex - 1 + 28) % 28);
+      newBubbles[(currentIndex - 1 + 28) % 28].bubbleState = bubbleState;
+      return newBubbles;
+    });
+  }, [currentIndex]);
 
   return (
     <Box
@@ -72,9 +69,9 @@ function BubbleChain() {
         }}
       >
         {bubbles.map((bubble, index) => {
-          var angle = index * angleStep - (Math.PI / 2); //to take the first bubble top middle
-          const x = radius + radius * Math.cos(angle) - (bubbleSize/2); // Center bubbles
-          const y = radius + radius * Math.sin(angle) - (bubbleSize/2);
+          var angle = index * angleStep - Math.PI / 2; //to take the first bubble top middle
+          const x = radius + radius * Math.cos(angle) - bubbleSize / 2; // Center bubbles
+          const y = radius + radius * Math.sin(angle) - bubbleSize / 2;
 
           return (
             <Box
@@ -85,7 +82,11 @@ function BubbleChain() {
                 top: `${y}px`,
               }}
             >
-              <Bubble letter={bubble.letter} size={bubbleSize} bubbleState={bubble.bubbleState} />
+              <Bubble
+                letter={bubble.letter}
+                size={bubbleSize}
+                bubbleState={bubble.bubbleState}
+              />
             </Box>
           );
         })}

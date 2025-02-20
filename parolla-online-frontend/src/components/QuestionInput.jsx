@@ -5,19 +5,23 @@ import languageENG from '../languageENG.json';
 import languageTR from '../languageTR.json';
 import { useSelector } from "react-redux";
 
-function QuestionInput() {
+function QuestionInput({handleAnswer}) {
 
     const languageChoice = useSelector((state) => state.language.language);
     const language = languageChoice === "TR" ? languageTR : languageENG;
     const [answer, setAnswer] = useState("");
-    const theme = useTheme();
+
+    const handleInputValue = (value) => {
+        //setAnswer()
+        handleAnswer(value)
+    }
 
     return (<Box sx={{ width: "100%", textAlign: "center", marginTop: 2 }}>
         <TextField
             label= {language.questionInput.answerTextFieldLabel}
             variant="outlined"
             value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
+            onChange={(e) => handleInputValue(e.target.value)}
             sx={{
                 width: "80%", // Adjust width as needed
                 maxWidth: "400px",

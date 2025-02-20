@@ -10,36 +10,11 @@ const turkishAlphabet = [
     "P", "R", "S", "Ş", "T", "U", "Ü", "V", "Y", "Z"
 ]
 
-function QuestionHolder() {
+function QuestionHolder( {question, handleAnswer, handlePass} ) {
 
     const languageChoice = useSelector((state) => state.language.language);
     const language = languageChoice === "TR" ? languageTR : languageENG;
     
-    const [questions, setQuestions] = useState();
-    const [currentQuestion, setCurrentQuestion] = useState();
-    const questionIndex = useRef(0);
-    
-    useEffect(() => {
-        fetch("/data/dummy_questions.json")
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                setQuestions(data);
-                setCurrentQuestion(data[turkishAlphabet[questionIndex.current]][0].soru);
-            })
-            .catch(error => console.log(error));
-    }, []);
-
-    const handleNextClick = () => {
-        questionIndex.current = (questionIndex.current + 1) % 28;
-        setCurrentQuestion(questions[turkishAlphabet[questionIndex.current]][0].soru);
-    }
-
-    const handlePreviousClick = () => {
-        questionIndex.current = (questionIndex.current - 1) % 28;
-        setCurrentQuestion(questions[turkishAlphabet[questionIndex.current]][0].soru);
-    }
-
     return (
         <Box
             sx={{
@@ -58,9 +33,9 @@ function QuestionHolder() {
                     marginBottom: 2
                 }}
             > 
-                {currentQuestion}    
+                {question}    
             </Typography>
-            <QuestionInput />
+            <QuestionInput handleAnswer={handleAnswer} />
             <Stack spacing={1} direction="row" alignItems="center" justifyContent="center" sx={{marginTop: 2}}>
                 <Button
                     variant="contained"
@@ -69,7 +44,7 @@ function QuestionHolder() {
                         backgroundColor: "black", 
                         marginTop: 5
                     }}
-                    onClick={() => handleNextClick()}
+                    onClick={() => handlePass()}
                 > {language.questionHolder.pass}
                 </Button>
                 <Button
@@ -79,7 +54,7 @@ function QuestionHolder() {
                         backgroundColor: "black", 
                         marginTop: 5
                     }}
-                    onClick={() => handleNextClick()}
+                    onClick={() => handleAnswer()}
                 > {language.questionHolder.answer}
                 </Button>
             </Stack>
