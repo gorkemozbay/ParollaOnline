@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Typography, Box, Button, Stack } from '@mui/material';
 import QuestionInput from  "../components/QuestionInput";
-import languageENG from '../languageENG.json';
-import languageTR from '../languageTR.json';
 import { useSelector } from "react-redux";
 
 const turkishAlphabet = [
@@ -12,8 +10,7 @@ const turkishAlphabet = [
 
 function QuestionHolder( {question, handleAnswer, handlePass} ) {
 
-    const languageChoice = useSelector((state) => state.language.language);
-    const language = languageChoice === "TR" ? languageTR : languageENG;
+    const language = useSelector((state) => state.language.languageData);
     
     return (
         <Box

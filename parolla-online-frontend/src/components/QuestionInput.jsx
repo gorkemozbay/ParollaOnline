@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { TextField, Box } from "@mui/material";
-import { useTheme } from '@mui/material/styles';
-import languageENG from '../languageENG.json';
-import languageTR from '../languageTR.json';
 import { useSelector } from "react-redux";
 
 function QuestionInput({handleAnswer}) {
 
-    const languageChoice = useSelector((state) => state.language.language);
-    const language = languageChoice === "TR" ? languageTR : languageENG;
+    const language = useSelector((state) => state.language.languageData);
     const [answer, setAnswer] = useState("");
 
     const handleInputValue = (value) => {

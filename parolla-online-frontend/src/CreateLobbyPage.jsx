@@ -3,14 +3,11 @@ import React from 'react';
 import { Box, Stack, Avatar, Button, Typography } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import { Link } from 'react-router-dom';
-import languageENG from "./languageENG.json";
-import languageTR from "./languageTR.json";
 import { useSelector } from "react-redux";
 
 const CreateLobbyPage = () => {
     
-    const languageChoice = useSelector((state) => state.language.language);
-    const language = languageChoice === "TR" ? languageTR : languageENG;
+    const language = useSelector((state) => state.language.languageData);
 
     const theme = useTheme();
 

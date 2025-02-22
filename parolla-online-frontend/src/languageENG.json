@@ -16,7 +16,7 @@
         "answerTextFieldLabel": "Your Answer"
     },
     "questionHolder": {
-        "pass": "PASS",
+        "pass": "Bypass",
         "answer": "Answer"
     }
 }
