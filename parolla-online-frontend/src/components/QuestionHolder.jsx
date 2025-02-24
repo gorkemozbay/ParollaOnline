@@ -5,11 +5,6 @@ import languageENG from '../languageENG.json';
 import languageTR from '../languageTR.json';
 import { useSelector } from "react-redux";
 
-const turkishAlphabet = [
-    "A", "B", "C", "Ç", "D", "E", "F", "G", "H", "I", "İ", "J", "K", "L", "M", "N", "O", "Ö", 
-    "P", "R", "S", "Ş", "T", "U", "Ü", "V", "Y", "Z"
-]
-
 function QuestionHolder( {question, handleAnswer, handlePass} ) {
 
     const languageChoice = useSelector((state) => state.language.language);
