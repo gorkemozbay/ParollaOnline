@@ -1,11 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import languageReducer from "./languageSlice"; // TODO: naming convention
-import QuestionReducer from "./questionSlice";
+import languageReducer from "./languageSlice";
 
 const store = configureStore({
     reducer: {
         language: languageReducer,
-        question: QuestionReducer,
     },
 });
 

@@ -1,27 +1,16 @@
 import { Box } from "@mui/material";
 import Bubble from "./Bubble";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import BubbleModel from "../models/BubbleModel";
+
 
 
 const totalBubbles = 28;
 const angleStep = (2 * Math.PI) / totalBubbles;
 const bubbleSize = 60; // TODO: bunlar config gibi bi yere
 
-function BubbleChain({ bubbleState }) {
+function BubbleChain({ bubbles, questionIndex }) {
+
     const [radius, setRadius] = useState(200);
-    const [start, setStart] = useState(true);
-
-    const questionIndex = useSelector((state) => state.question.questionIndex);
-
-    const generateBubbles = () => {
-        return Array(totalBubbles)
-        .fill(null)
-        .map((_, index) => new BubbleModel(index));
-    };
-    const [bubbles, setBubbles] = useState(generateBubbles);
-
 
     useEffect(() => {
         const updateRadius = () => {
@@ -35,19 +24,6 @@ function BubbleChain({ bubbleState }) {
         return () => window.removeEventListener("resize", updateRadius);
     
     }, []);
-
-    useEffect(() => {
-        if (start) {
-            setStart(false);
-            return;
-        }
-
-        setBubbles((prevBubbles) => {
-            const newBubbles = [...prevBubbles];
-            newBubbles[(questionIndex - 1 + 28) % 28].bubbleState = bubbleState;
-            return newBubbles;
-        });
-    }, [questionIndex]);
 
     return (
         <Box
@@ -71,10 +47,11 @@ function BubbleChain({ bubbleState }) {
                 height: `${2 * radius}px`,
                 }}
             >
-                {bubbles.map((bubble, index) => {
+                {bubbles?.map((bubble, index) => {
+                    const bubbleAdjustedSize = bubbleSize * (bubble.index == questionIndex ? 1.3 : 1);
                     var angle = index * angleStep - Math.PI / 2; 
-                    const x = radius + radius * Math.cos(angle) - bubbleSize / 2; 
-                    const y = radius + radius * Math.sin(angle) - bubbleSize / 2;
+                    const x = radius + radius * Math.cos(angle) - bubbleAdjustedSize / 2; 
+                    const y = radius + radius * Math.sin(angle) - bubbleAdjustedSize / 2;
                     return (
                         <Box
                             key={index}
@@ -86,8 +63,9 @@ function BubbleChain({ bubbleState }) {
                         >
                             <Bubble
                                 letter={bubble.letter}
-                                size={bubbleSize}
+                                size={bubbleAdjustedSize}
                                 bubbleState={bubble.bubbleState}
+                                isCurrentBubble={bubble.index == questionIndex}
                             >
                             </Bubble>
                         </Box>

@@ -1,14 +1,11 @@
 import BubbleState from "../enums/BubbleState";
 
-const turkishAlphabet = [
-  "A", "B", "C", "Ç", "D", "E", "F", "G", "H", "I", "İ", "J", "K", "L", "M", "N", "O", "Ö", 
-  "P", "R", "S", "Ş", "T", "U", "Ü", "V", "Y", "Z"
-];
-
 class BubbleModel {
-  constructor(bubbleIndex) {
+  constructor(bubbleIndex, letter, question, answer) {
     this.index = bubbleIndex;
-    this.letter = turkishAlphabet[bubbleIndex % turkishAlphabet.length];
+    this.letter = letter;
+    this.question = question;
+    this.answer = answer;
     this.bubbleState = BubbleState.INITIAL;
   }
 
