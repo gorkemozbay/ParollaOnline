@@ -28,6 +28,7 @@ function MainGameLayout() {
     }, []);
 
     const handleAnswer = (answer) => {
+
         let state;
         if (answer == "") {
             state = BubbleState.BYPASSED;
@@ -84,21 +85,21 @@ function MainGameLayout() {
     }
     
     return (
-        <>
-            <Timer initialSeconds={60 * 5}></Timer>  {/* TODO: Game End Screen when timer is up. */} 
+        <> {/* TODO: Game End Screen when timer is up. */}
+            <Timer
+                initialSeconds={60 * 5}
+            ></Timer> 
             <BubbleChain
                 bubbles={bubbles}
                 questionIndex={questionIndex}
-            >
-            </BubbleChain>
+            ></BubbleChain>
             <QuestionHolder
                 bubble={bubbles?.[questionIndex]}
-            >
-            </QuestionHolder>
+            ></QuestionHolder>
             <QuestionInput
+                bubble={bubbles?.[questionIndex]}
                 handleAnswer={handleAnswer}
-            >
-            </QuestionInput>
+            ></QuestionInput>
             {/*  Opponent Bubble  */}
         </>
     );

@@ -4,20 +4,30 @@ import languageENG from '../languageENG.json';
 import languageTR from '../languageTR.json';
 import { useSelector } from "react-redux";
 
-function QuestionInput( { handleAnswer } ) {
+function QuestionInput( { handleAnswer, bubble } ) {
 
     const languageChoice = useSelector((state) => state.language.language);
     const language = languageChoice === "TR" ? languageTR : languageENG;
     
     const [answer, setAnswer] = useState("");
+    const [error, setError] = useState(false);
 
     const handleInputValue = (value) => {
         setAnswer(value);
     }
 
     const handleAnswerClick = () => {  
+        if (isAnswerValid(answer)) {
+            handleAnswer(answer);
+            setError(false);
+        } else {
+            setError(true);
+        }
         setAnswer("");
-        handleAnswer(answer);
+    }
+
+    const isAnswerValid = (answer) => { 
+        return answer == "" || bubble.letter.toUpperCase() == answer[0].toUpperCase(); 
     }
 
     return (
@@ -33,33 +43,34 @@ function QuestionInput( { handleAnswer } ) {
             }} // TODO: question holder'la aynı oldu dışardan ortaklanabilir bu box
         >
             <TextField
-                label= {language.questionInput.answerTextFieldLabel}
                 variant="outlined"
-                value={answer}
-                onChange={(e) => handleInputValue(e.target.value)}
                 sx={{
                     width: "100%",
                     maxWidth: "500px",
                     color: "black",
-                    backgroundColor: "white",
                     marginTop: 20
                 }}
-            />
-                <Button
-                    variant="outlined"
-                    sx={{ 
-                        width: 200,
-                        height: 50, 
-                        backgroundColor: "white",
-                        borderColor: "black",
-                        borderRadius: 3,
-                        color: "black",
-                        marginTop: 2
-                    }}
-                    onClick={() => handleAnswerClick()}
-                > {answer == "" ? language.questionHolder.pass : language.questionHolder.answer}
-                </Button>
-
+                label= {language.questionInput.answerTextFieldLabel}
+                value={answer}
+                onChange={(e) => handleInputValue(e.target.value)}
+                error={error}
+                helperText={error ? `Answer must start with current letter: ${bubble.letter}` : ""}
+            ></TextField>
+            <Button
+                variant="outlined"
+                sx={{ 
+                    width: 200,
+                    height: 50, 
+                    backgroundColor: "white",
+                    borderColor: "black",
+                    borderRadius: 3,
+                    color: "black",
+                    marginTop: 2
+                }}
+                onClick={() => handleAnswerClick()}
+            > 
+                {answer == "" ? language.questionHolder.pass : language.questionHolder.answer}
+            </Button>
         </Box>
     )
 }
