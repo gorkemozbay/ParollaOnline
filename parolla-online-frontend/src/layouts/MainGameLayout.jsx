@@ -12,6 +12,7 @@ function MainGameLayout() {
     const [bubbles, setBubbles] = useState();
     const [questionIndex, setQuestionIndex] = useState(0);
     const [isEndingPanelVisible, setIsEndingPanelVisible] = useState(false);
+    const [isTimerRunning, setIsTimerRunning] = useState(true);
 
     useEffect(() => {
         fetch("/data/dummy_questions_2.json")
@@ -33,7 +34,7 @@ function MainGameLayout() {
         let state;
         if (answer == "") {
             state = BubbleState.BYPASSED;
-        } else if (answer == bubbles?.[questionIndex].answer) {
+        } else if (answer.toLowerCase() == bubbles?.[questionIndex].answer.toLowerCase()) {
             state = BubbleState.CORRECT; 
         } else {
             state = BubbleState.FAIL;
@@ -52,8 +53,7 @@ function MainGameLayout() {
     const calculateNewIndex = () => {
         const isGameFinished = checkIfGameFinished();
         if (isGameFinished) {
-            const results = getResults();  
-            alert(`Game is Finished! Correct: ${results.correct} Wrong: ${results.wrong} Pass: ${results.pass}`); // TODO: Game End Screen: Score, all answers etc..
+            setIsEndingPanelVisible(true);
             return questionIndex;
         }
 
@@ -67,22 +67,6 @@ function MainGameLayout() {
 
     const checkIfGameFinished = () => {
         return bubbles.every((bubble) => bubble.bubbleState == BubbleState.FAIL || bubble.bubbleState == BubbleState.CORRECT);
-    };
-
-    const getResults = () => {
-        let correct = 0;
-        let wrong = 0;
-        let pass = 0;
-        bubbles.forEach((bubble) => {
-            if (bubble.bubbleState == BubbleState.CORRECT) {
-                correct++;
-            } else if (bubble.bubbleState == BubbleState.FAIL) {
-                wrong++;
-            } else if (bubble.bubbleState == BubbleState.BYPASSED) {
-                pass++;
-            }
-        });
-        return {correct, wrong, pass};
     }
 
     const handleTimer = () => {
@@ -96,8 +80,9 @@ function MainGameLayout() {
     return (
         <>
             <Timer
-                initialSeconds={30}
+                initialSeconds={ 1 * 60 }
                 handleTimer={handleTimer}
+                isRunning={isTimerRunning} // TODO: this is not implemented yet
             ></Timer> 
             <BubbleChain
                 bubbles={bubbles}
@@ -113,6 +98,7 @@ function MainGameLayout() {
             <EndingPanel
                 isOpen={isEndingPanelVisible}
                 handleCloseDialog={handleCloseDialog}
+                bubbles={bubbles}
             ></EndingPanel>
             {/*  Opponent Bubble          */}
         </>

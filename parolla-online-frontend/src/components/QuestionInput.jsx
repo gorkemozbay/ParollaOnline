@@ -16,6 +16,16 @@ function QuestionInput( { handleAnswer, bubble } ) {
         setAnswer(value);
     }
 
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            handleAnswerClick();
+        } else if (e.key === "Tab") {
+            e.preventDefault();
+            handleAnswer("");
+            setAnswer("");
+        }
+    }
+
     const handleAnswerClick = () => {  
         if (isAnswerValid(answer)) {
             handleAnswer(answer);
@@ -53,6 +63,7 @@ function QuestionInput( { handleAnswer, bubble } ) {
                 label= {language.questionInput.answerTextFieldLabel}
                 value={answer}
                 onChange={(e) => handleInputValue(e.target.value)}
+                onKeyDown={handleKeyDown}
                 error={error}
                 helperText={error ? `Answer must start with current letter: ${bubble.letter}` : ""}
             ></TextField>

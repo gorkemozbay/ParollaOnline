@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Typography } from '@mui/material';
 
-function Timer( {initialSeconds, handleTimer} ) {
+function Timer( {initialSeconds, handleTimer, isRunning} ) {
 
     const [seconds, setSeconds] = useState(initialSeconds);
     const [startTime, setStartTime] = useState(Date.now());
