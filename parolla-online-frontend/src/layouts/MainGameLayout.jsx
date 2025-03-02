@@ -5,11 +5,13 @@ import QuestionHolder from "../components/QuestionHolder"
 import BubbleModel from "../models/BubbleModel";
 import BubbleState from "../enums/BubbleState";
 import QuestionInput from "../components/QuestionInput";
+import EndingPanel from "../components/EndingPanel";
 
 function MainGameLayout() {
     
     const [bubbles, setBubbles] = useState();
     const [questionIndex, setQuestionIndex] = useState(0);
+    const [isEndingPanelVisible, setIsEndingPanelVisible] = useState(false);
 
     useEffect(() => {
         fetch("/data/dummy_questions_2.json")
@@ -28,7 +30,6 @@ function MainGameLayout() {
     }, []);
 
     const handleAnswer = (answer) => {
-
         let state;
         if (answer == "") {
             state = BubbleState.BYPASSED;
@@ -83,11 +84,20 @@ function MainGameLayout() {
         });
         return {correct, wrong, pass};
     }
+
+    const handleTimer = () => {
+        setIsEndingPanelVisible(true);
+    }
+
+    const handleCloseDialog = () => {
+        setIsEndingPanelVisible(false);
+    }
     
     return (
-        <> {/* TODO: Game End Screen when timer is up. */}
+        <>
             <Timer
-                initialSeconds={60 * 5}
+                initialSeconds={30}
+                handleTimer={handleTimer}
             ></Timer> 
             <BubbleChain
                 bubbles={bubbles}
@@ -100,7 +110,11 @@ function MainGameLayout() {
                 bubble={bubbles?.[questionIndex]}
                 handleAnswer={handleAnswer}
             ></QuestionInput>
-            {/*  Opponent Bubble  */}
+            <EndingPanel
+                isOpen={isEndingPanelVisible}
+                handleCloseDialog={handleCloseDialog}
+            ></EndingPanel>
+            {/*  Opponent Bubble          */}
         </>
     );
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Typography } from '@mui/material';
 
-function Timer( {initialSeconds} ) {
+function Timer( {initialSeconds, handleTimer} ) {
 
     const [seconds, setSeconds] = useState(initialSeconds);
     const [startTime, setStartTime] = useState(Date.now());
@@ -17,6 +17,13 @@ function Timer( {initialSeconds} ) {
         return () => clearInterval(interval);
 
     }, [startTime, initialSeconds])
+
+
+    useEffect(() => {
+        if (seconds === 0) {
+            handleTimer();
+        }
+    }, [seconds])
 
     const formatTime = (secs) => {
         const minutes = Math.floor(secs / 60);
@@ -37,4 +44,5 @@ function Timer( {initialSeconds} ) {
         >{formatTime(seconds)}</Typography>
     )
 };
+
 export default Timer;
