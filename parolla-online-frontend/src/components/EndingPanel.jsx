@@ -56,7 +56,15 @@ function EndingPanel( {isOpen, bubbles, handlePlayAgain} ) {
             }
             {tabValue === 1 &&
                 <DialogContent>
-                    <Typography>Answer Key</Typography>
+                    {bubbles?.map((bubble, index) => {
+                        return (
+                            <Box key={index}>
+                                <Typography> {bubble.letter}</Typography>
+                                <Typography> Question: {bubble.question}</Typography>
+                                <Typography> Answer:   {bubble.answer}</Typography>
+                            </Box>
+                        )
+                    })}
                 </DialogContent>
             }
             <DialogActions>

@@ -37,7 +37,7 @@ function QuestionInput( { handleAnswer, bubble } ) {
     }
 
     const isAnswerValid = (answer) => { 
-        return answer == "" || bubble.letter.toUpperCase() == answer[0].toUpperCase(); 
+        return answer == "" || answer == "bitir" || bubble.letter.toUpperCase() == answer[0].toUpperCase(); 
     }
 
     return (

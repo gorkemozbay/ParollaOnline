@@ -34,28 +34,32 @@ function MainGameLayout() {
 
     const handleAnswer = (answer) => {
         let state;
-        if (answer == "") {
-            state = BubbleState.BYPASSED;
-        } else if (answer.toLowerCase() == bubbles?.[questionIndex].answer.toLowerCase()) {
-            state = BubbleState.CORRECT; 
+        if (answer == "bitir") {
+            finishGame();
         } else {
-            state = BubbleState.FAIL;
+            if (answer == "") {
+                state = BubbleState.BYPASSED;
+            } else if (answer.toLowerCase() == bubbles?.[questionIndex].answer.toLowerCase()) {
+                state = BubbleState.CORRECT; 
+            } else {
+                state = BubbleState.FAIL;
+            }
+    
+            setBubbles((prevBubbles) => {
+                const newBubbles = [...prevBubbles];
+                newBubbles[questionIndex].bubbleState = state;
+                
+                const newIndex = calculateNewIndex();
+                setQuestionIndex(newIndex);    
+                return newBubbles;
+            })
         }
-
-        setBubbles((prevBubbles) => {
-            const newBubbles = [...prevBubbles];
-            newBubbles[questionIndex].bubbleState = state;
-            
-            const newIndex = calculateNewIndex();
-            setQuestionIndex(newIndex);    
-            return newBubbles;
-        })
     };
 
     const calculateNewIndex = () => {
         const isGameFinished = checkIfGameFinished();
         if (isGameFinished) {
-            setIsEndingPanelVisible(true);
+            finishGame();
             return questionIndex;
         }
 
@@ -71,8 +75,9 @@ function MainGameLayout() {
         return bubbles.every((bubble) => bubble.bubbleState == BubbleState.FAIL || bubble.bubbleState == BubbleState.CORRECT);
     }
 
-    const handleTimer = () => {
+    const finishGame = () => {
         setIsEndingPanelVisible(true);
+        setIsTimerRunning(false);
     }
 
     const handlePlayAgain = () => {
@@ -84,15 +89,16 @@ function MainGameLayout() {
             return newBubbles;
         });
         timerRef.current.resetTimer();
+        setIsTimerRunning(true);
     }
     
     return (
         <>
             <Timer
                 ref={timerRef}
-                initialSeconds={ 1 * 10 }
-                handleTimer={handleTimer}
-                isRunning={isTimerRunning} // TODO: this is not implemented yet
+                initialSeconds={ 1 * 60 }
+                handleTimerExpire={finishGame}
+                isRunning={isTimerRunning}
             ></Timer> 
             <BubbleChain
                 bubbles={bubbles}

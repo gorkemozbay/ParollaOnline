@@ -2,33 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { useImperativeHandle, forwardRef } from 'react';
 import { Typography } from '@mui/material';
 
-const Timer = forwardRef(( {initialSeconds, handleTimer, isRunning}, ref ) => {
+const Timer = forwardRef(( {initialSeconds, handleTimerExpire, isRunning}, ref ) => {
 
     const [seconds, setSeconds] = useState(initialSeconds);
-    const [startTime, setStartTime] = useState(Date.now());
 
     useEffect(() => {
-        
+        if (!isRunning) return;
+
         const interval = setInterval(() => {
-            const elapsedTime = Date.now() - startTime;
-            const updatedTime = Math.max(0, initialSeconds - Math.floor(elapsedTime / 1000));
-            setSeconds(updatedTime);
-        }, 100);
+            setSeconds((prevSeconds) => Math.max(0, prevSeconds - 1));
+        }, 1000);
 
         return () => clearInterval(interval);
 
-    }, [startTime, initialSeconds])
+    }, [isRunning])
 
 
     useEffect(() => {
         if (seconds === 0) {
-            handleTimer();
+            handleTimerExpire();
         }
     }, [seconds])
 
     useImperativeHandle(ref, () => ({
         resetTimer: () => {
-            setStartTime(Date.now());
             setSeconds(initialSeconds);
         }
     }));
