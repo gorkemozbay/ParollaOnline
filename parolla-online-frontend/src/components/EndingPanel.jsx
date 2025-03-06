@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BubbleState from "../enums/BubbleState";
 
-function EndingPanel( {isOpen, handleCloseDialog, bubbles} ) {
+function EndingPanel( {isOpen, bubbles, handlePlayAgain} ) {
 
     const [tabValue, setTabValue] = useState(0);
     const [results, setResults] = useState({correct: 0, wrong: 0, pass: 0});
@@ -66,7 +66,7 @@ function EndingPanel( {isOpen, handleCloseDialog, bubbles} ) {
                     Go to Home
                 </Button>
                 <Button
-                    onClick={null} // TODO: implement play again
+                    onClick={() => {handlePlayAgain()}} // TODO: implement play again
                 >
                     Play Again
                 </Button>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useImperativeHandle, forwardRef } from 'react';
 import { Typography } from '@mui/material';
 
-function Timer( {initialSeconds, handleTimer, isRunning} ) {
+const Timer = forwardRef(( {initialSeconds, handleTimer, isRunning}, ref ) => {
 
     const [seconds, setSeconds] = useState(initialSeconds);
     const [startTime, setStartTime] = useState(Date.now());
@@ -25,6 +26,13 @@ function Timer( {initialSeconds, handleTimer, isRunning} ) {
         }
     }, [seconds])
 
+    useImperativeHandle(ref, () => ({
+        resetTimer: () => {
+            setStartTime(Date.now());
+            setSeconds(initialSeconds);
+        }
+    }));
+
     const formatTime = (secs) => {
         const minutes = Math.floor(secs / 60);
         const seconds = secs % 60;
@@ -43,6 +51,6 @@ function Timer( {initialSeconds, handleTimer, isRunning} ) {
             }}
         >{formatTime(seconds)}</Typography>
     )
-};
+});
 
 export default Timer;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import BubbleChain from "../components/BubbleChain";
 import Timer from "../components/Timer";
 import QuestionHolder from "../components/QuestionHolder"
@@ -13,6 +13,8 @@ function MainGameLayout() {
     const [questionIndex, setQuestionIndex] = useState(0);
     const [isEndingPanelVisible, setIsEndingPanelVisible] = useState(false);
     const [isTimerRunning, setIsTimerRunning] = useState(true);
+
+    const timerRef = useRef();
 
     useEffect(() => {
         fetch("/data/dummy_questions_2.json")
@@ -73,14 +75,22 @@ function MainGameLayout() {
         setIsEndingPanelVisible(true);
     }
 
-    const handleCloseDialog = () => {
+    const handlePlayAgain = () => {
+        setQuestionIndex(0);
         setIsEndingPanelVisible(false);
+        setBubbles((prevBubbles) => {
+            const newBubbles = [...prevBubbles];
+            newBubbles.forEach((bubble) => bubble.bubbleState = BubbleState.INITIAL);
+            return newBubbles;
+        });
+        timerRef.current.resetTimer();
     }
     
     return (
         <>
             <Timer
-                initialSeconds={ 1 * 60 }
+                ref={timerRef}
+                initialSeconds={ 1 * 10 }
                 handleTimer={handleTimer}
                 isRunning={isTimerRunning} // TODO: this is not implemented yet
             ></Timer> 
@@ -97,8 +107,8 @@ function MainGameLayout() {
             ></QuestionInput>
             <EndingPanel
                 isOpen={isEndingPanelVisible}
-                handleCloseDialog={handleCloseDialog}
                 bubbles={bubbles}
+                handlePlayAgain={handlePlayAgain}
             ></EndingPanel>
             {/*  Opponent Bubble          */}
         </>
