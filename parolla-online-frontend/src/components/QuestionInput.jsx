@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Box, Button } from "@mui/material";
-import languageENG from '../languageENG.json';
-import languageTR from '../languageTR.json';
+import languageENG from '../local/languageENG.json';
+import languageTR from '../local/languageTR.json';
 import { useSelector } from "react-redux";
 
 function QuestionInput( { handleAnswer, bubble } ) {

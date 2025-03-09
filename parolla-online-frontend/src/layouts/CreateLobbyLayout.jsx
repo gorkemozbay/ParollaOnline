@@ -3,11 +3,13 @@ import React from 'react';
 import { Box, Stack, Avatar, Button, Typography } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import { Link } from 'react-router-dom';
-import languageENG from "./languageENG.json";
-import languageTR from "./languageTR.json";
+
+import languageENG from '../local/languageENG';
+import languageTR from '../local/languageTR';
+
 import { useSelector } from "react-redux";
 
-const CreateLobbyPage = () => {
+const CreateLobbyLayout = () => {
     
     const languageChoice = useSelector((state) => state.language.language);
     const language = languageChoice === "TR" ? languageTR : languageENG;
@@ -128,4 +130,4 @@ const CreateLobbyPage = () => {
     );
 };
 
-export default CreateLobbyPage
+export default CreateLobbyLayout

@@ -8,6 +8,7 @@ const Timer = forwardRef(( {initialSeconds, handleTimerExpire, isRunning}, ref )
 
     useEffect(() => {
         if (!isRunning) return;
+        // Write remaning val to redux
 
         const interval = setInterval(() => {
             setSeconds((prevSeconds) => Math.max(0, prevSeconds - 1));

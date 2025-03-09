@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Homepage from "./Homepage";
-import CreateLobbyPage from "./CreateLobbyPage";
+import HomepageLayout from "./layouts/HomepageLayout";
+import CreateLobbyLayout from "./layouts/CreateLobbyLayout";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import MainGameLayout from "./layouts/MainGameLayout";
 import store from "./redux/store";
@@ -25,8 +25,8 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <Router>
           <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/create-lobby" element={<CreateLobbyPage />} />
+            <Route path="/" element={<HomepageLayout />} />
+            <Route path="/create-lobby" element={<CreateLobbyLayout />} />
             <Route path="/quick-play" element={<MainGameLayout />} />
           </Routes>
         </Router>

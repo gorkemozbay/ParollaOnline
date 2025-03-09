@@ -3,12 +3,12 @@ import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Stack, IconButton, Select, MenuItem} from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import languageENG from './languageENG';
-import languageTR from './languageTR';
+import languageENG from '../local/languageENG';
+import languageTR from '../local/languageTR';
 import { useDispatch, useSelector } from "react-redux";
-import { setLanguage } from "./redux/languageSlice";
+import { setLanguage } from "../redux/languageSlice";
 
-const Homepage = () => {
+const HomepageLayout = () => {
 
     const theme = useTheme();
     const navigate = useNavigate();
@@ -73,4 +73,4 @@ const Homepage = () => {
     );
 };
 
-export default Homepage
+export default HomepageLayout;
