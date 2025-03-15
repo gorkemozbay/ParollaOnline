@@ -3,7 +3,7 @@ import { Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material
 import { Tabs, Tab, Box, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BubbleState from "../enums/BubbleState";
+import BubbleState from "../../enums/BubbleState";
 
 function EndingPanel( {isOpen, bubbles, handlePlayAgain} ) {
 

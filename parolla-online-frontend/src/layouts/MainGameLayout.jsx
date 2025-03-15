@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-import BubbleChain from "../components/BubbleChain";
-import Timer from "../components/Timer";
-import QuestionHolder from "../components/QuestionHolder"
+import BubbleChain from "../components/game/BubbleChain";
+import Timer from "../components/game/Timer";
+import QuestionHolder from "../components/game/QuestionHolder"
 import BubbleModel from "../models/BubbleModel";
 import BubbleState from "../enums/BubbleState";
-import QuestionInput from "../components/QuestionInput";
-import EndingPanel from "../components/EndingPanel";
+import QuestionInput from "../components/game/QuestionInput";
+import EndingPanel from "../components/game/EndingPanel";
 
 function MainGameLayout() {
     
@@ -96,7 +96,7 @@ function MainGameLayout() {
         <>
             <Timer
                 ref={timerRef}
-                initialSeconds={ 1 * 60 }
+                initialSeconds={ 5 * 60 }
                 handleTimerExpire={finishGame}
                 isRunning={isTimerRunning}
             ></Timer> 

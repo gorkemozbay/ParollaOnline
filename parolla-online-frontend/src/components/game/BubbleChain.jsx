@@ -48,7 +48,7 @@ function BubbleChain({ bubbles, questionIndex }) {
                 }}
             >
                 {bubbles?.map((bubble, index) => {
-                    const bubbleAdjustedSize = bubbleSize * (bubble.index == questionIndex ? 1.3 : 1);
+                    const bubbleAdjustedSize = bubbleSize * (bubble.index == questionIndex ? 1.4 : 1.1);
                     var angle = index * angleStep - Math.PI / 2; 
                     const x = radius + radius * Math.cos(angle) - bubbleAdjustedSize / 2; 
                     const y = radius + radius * Math.sin(angle) - bubbleAdjustedSize / 2;

@@ -8,7 +8,7 @@ const Timer = forwardRef(( {initialSeconds, handleTimerExpire, isRunning}, ref )
 
     useEffect(() => {
         if (!isRunning) return;
-        // Write remaning val to redux
+        // Write remaning val to redux when stop
 
         const interval = setInterval(() => {
             setSeconds((prevSeconds) => Math.max(0, prevSeconds - 1));
@@ -38,16 +38,21 @@ const Timer = forwardRef(( {initialSeconds, handleTimerExpire, isRunning}, ref )
     }
 
     return (
-        <Typography
-            variant="h2"
-            sx={{
-                position: "absolute",
-                bottom: "50px",
-                left: "50px",
+        <div
+            style={{
+                position: "fixed",
+                top: "30%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                textAlign: "center",
+                fontSize: "2em",
+                fontFamily: "Chevy, cursive",
+                fontWeight: "bold",
+                textShadow: "0px 0px 5px rgba(0, 0, 0, 0.10)",
                 color: seconds <= 10 ? "red" : "black",
-                textShadow: "0px 0px 10px rgba(0, 0, 0, 0.25)"
             }}
-        >{formatTime(seconds)}</Typography>
+        >{formatTime(seconds)}
+        </div>
     )
 });
 
