@@ -6,6 +6,8 @@ import BubbleModel from "../models/BubbleModel";
 import BubbleState from "../enums/BubbleState";
 import QuestionInput from "../components/game/QuestionInput";
 import EndingPanel from "../components/game/EndingPanel";
+import { ToastContainer, toast, Slide  } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MainGameLayout() {
     
@@ -54,7 +56,7 @@ function MainGameLayout() {
                 return newBubbles;
             })
         }
-    };
+    }
 
     const calculateNewIndex = () => {
         const isGameFinished = checkIfGameFinished();
@@ -108,8 +110,8 @@ function MainGameLayout() {
                 bubble={bubbles?.[questionIndex]}
             ></QuestionHolder>
             <QuestionInput
-                bubble={bubbles?.[questionIndex]}
                 handleAnswer={handleAnswer}
+                bubble={bubbles?.[questionIndex]}
             ></QuestionInput>
             <EndingPanel
                 isOpen={isEndingPanelVisible}

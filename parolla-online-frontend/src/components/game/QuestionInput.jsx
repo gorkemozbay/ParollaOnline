@@ -79,8 +79,6 @@ function QuestionInput( { handleAnswer, bubble } ) {
                     value={answer}
                     onChange={(e) => handleInputValue(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    error={error} // Material UI TextField does not have error prop, so we need to use it as a custom prop
-                    helperText={error ? `Answer must start with current letter: ${bubble.letter}` : ""}
                 ></input>
                 <button
                     style={{
@@ -92,6 +90,23 @@ function QuestionInput( { handleAnswer, bubble } ) {
                     {answer == "" ? language.questionHolder.pass : language.questionHolder.answer}
                 </button>
             </div>
+            { error &&
+                <div
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginTop: "10px",
+                        textAlign: "center",
+                        color: "#F93827",
+                        fontSize: "1.25em",
+                        fontFamily: "Chevy, cursive",
+                        fontWeight: "bold",
+                        textShadow: "0px 0px 20px rgba(255, 0, 0, 0.5)",
+                    }}
+                > Answer must starrt with {bubble.letter.toUpperCase()}
+                </div>
+            }   
         </div>
     )
 }
