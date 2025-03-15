@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useImperativeHandle, forwardRef } from 'react';
-import { Typography } from '@mui/material';
 
 const Timer = forwardRef(( {initialSeconds, handleTimerExpire, isRunning}, ref ) => {
 

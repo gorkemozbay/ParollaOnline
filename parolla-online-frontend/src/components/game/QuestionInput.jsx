@@ -83,6 +83,15 @@ function QuestionInput( { handleAnswer, bubble } ) {
                 <button
                     style={{
                         backgroundColor: answer == "" ? "#FFD65A" : "#16C47F",
+                        flex: 0.3,
+                        height: "50px",
+                        border: "3px solid black",
+                        borderRadius: "15px",
+                        color: "black",
+                        cursor: "pointer",
+                        fontSize: "1em",
+                        fontWeight: "bold",
+                        margin: "10px",
                     }}
                     className="game-button"
                     onClick={() => handleAnswerClick()}
@@ -104,7 +113,7 @@ function QuestionInput( { handleAnswer, bubble } ) {
                         fontWeight: "bold",
                         textShadow: "0px 0px 20px rgba(255, 0, 0, 0.5)",
                     }}
-                > Answer must starrt with {bubble.letter.toUpperCase()}
+                > Answer must start with {bubble.letter.toUpperCase()}
                 </div>
             }   
         </div>

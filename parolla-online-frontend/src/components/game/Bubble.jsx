@@ -1,7 +1,7 @@
 
 
 
-function Bubble({letter, size, bubbleState, isCurrentBubble} ) {
+function Bubble({ letter, size, bubbleState } ) {
     return (
         <div
             style={{

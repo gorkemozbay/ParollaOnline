@@ -6,8 +6,7 @@ import BubbleModel from "../models/BubbleModel";
 import BubbleState from "../enums/BubbleState";
 import QuestionInput from "../components/game/QuestionInput";
 import EndingPanel from "../components/game/EndingPanel";
-import { ToastContainer, toast, Slide  } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 
 function MainGameLayout() {
     

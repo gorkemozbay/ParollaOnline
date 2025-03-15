@@ -65,7 +65,6 @@ function BubbleChain({ bubbles, questionIndex }) {
                                 letter={bubble.letter}
                                 size={bubbleAdjustedSize}
                                 bubbleState={bubble.bubbleState}
-                                isCurrentBubble={bubble.index == questionIndex}
                             >
                             </Bubble>
                         </Box>

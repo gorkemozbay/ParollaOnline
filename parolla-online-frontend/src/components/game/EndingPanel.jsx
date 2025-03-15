@@ -1,6 +1,4 @@
 
-import { Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
-import { Tabs, Tab, Box, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BubbleState from "../../enums/BubbleState";
@@ -33,54 +31,69 @@ function EndingPanel( {isOpen, bubbles, handlePlayAgain} ) {
     }, [isOpen])
 
     return (
-        <Dialog 
-            open={isOpen}
-            disableBackdropClick
-            fullWidth
-            maxWidth="sm"
-        >
-            <DialogTitle>Game Over</DialogTitle>
-            <Tabs 
-                value={tabValue} 
-                onChange={(e, newValue) => setTabValue(newValue)}
+        isOpen && (
+            <div
+                style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100vw",
+                    height: "100vh",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    backgroundColor: "hsla(0, 0.00%, 100.00%, 0.5)",
+                }}
             >
-                <Tab label="Results"></Tab>
-                <Tab label="Answer Key"></Tab>
-            </Tabs>
-            {tabValue === 0 &&
-                <DialogContent>
-                    <Typography> Correct: {results.correct}</Typography>
-                    <Typography> Wrong:   {results.wrong}</Typography>
-                    <Typography> Pass:    {results.pass}</Typography>
-                </DialogContent>
-            }
-            {tabValue === 1 &&
-                <DialogContent>
-                    {bubbles?.map((bubble, index) => {
-                        return (
-                            <Box key={index}>
-                                <Typography> {bubble.letter}</Typography>
-                                <Typography> Question: {bubble.question}</Typography>
-                                <Typography> Answer:   {bubble.answer}</Typography>
-                            </Box>
-                        )
-                    })}
-                </DialogContent>
-            }
-            <DialogActions>
-                <Button
-                    onClick={() => { navigate('/') }}
+                <div
+                    style={{
+                        position: "relative",
+                        textAlign: "center",
+                        width: "40vw",
+                        height: "50vh",
+                        backgroundColor: "white",
+                        color: "black",
+                        borderRadius: "30px",
+                        border: "5px solid black",
+                        padding: "0px 0px 0px 20px",
+                        boxShadow: "0px 4px 10px rgba(0,0,0,0.4)",
+                    }}
                 >
-                    Go to Home
-                </Button>
-                <Button
-                    onClick={() => {handlePlayAgain()}} // TODO: implement play again
-                >
-                    Play Again
-                </Button>
-            </DialogActions>
-        </Dialog>
-    )
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            gap: "30px"
+                        }}
+                    >
+                        <h2
+                            style={{
+                                backgroundColor: tabValue == 0 ? "#FFD65A" : "white",
+                                padding: "8px",
+                                borderRadius: "20px",
+                                cursor: "pointer"
+                            }}
+                            onClick={() => setTabValue(0)}
+                        >
+                            Results
+                        </h2>
+                        <h2
+                            style={{
+                                backgroundColor: tabValue == 1 ? "#FFD65A" : "white",
+                                padding: "8px",
+                                borderRadius: "20px",
+                                cursor: "pointer"
+                            }}
+                            onClick={() => setTabValue(1)}
+                        >
+                            Answer Key
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        )
+    );
 }
 
 export default EndingPanel;
