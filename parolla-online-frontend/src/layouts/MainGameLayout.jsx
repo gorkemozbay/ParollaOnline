@@ -5,17 +5,21 @@ import QuestionHolder from "../components/game/QuestionHolder"
 import BubbleModel from "../models/BubbleModel";
 import BubbleState from "../enums/BubbleState";
 import QuestionInput from "../components/game/QuestionInput";
-import EndingPanel from "../components/game/EndingPanel";
+import EndCard from "../components/game/EndCard";
+import StartCard from "../components/game/StartCard";
 
 
 function MainGameLayout() {
     
     const [bubbles, setBubbles] = useState();
     const [questionIndex, setQuestionIndex] = useState(0);
+    const [isTimerRunning, setIsTimerRunning] = useState(false);
+    
     const [isEndingPanelVisible, setIsEndingPanelVisible] = useState(false);
-    const [isTimerRunning, setIsTimerRunning] = useState(true);
+    const [isStartPanelVisible, setIsStartPanelVisible] = useState(true);
 
     const timerRef = useRef();
+    const startCardRef = useRef();
 
     useEffect(() => {
         fetch("/data/dummy_questions_2.json")
@@ -76,6 +80,11 @@ function MainGameLayout() {
         return bubbles.every((bubble) => bubble.bubbleState == BubbleState.FAIL || bubble.bubbleState == BubbleState.CORRECT);
     }
 
+    const startGame = () => {
+        setIsStartPanelVisible(false);
+        setIsTimerRunning(true);
+    }
+
     const finishGame = () => {
         setIsEndingPanelVisible(true);
         setIsTimerRunning(false);
@@ -90,7 +99,8 @@ function MainGameLayout() {
             return newBubbles;
         });
         timerRef.current.resetTimer();
-        setIsTimerRunning(true);
+        startCardRef.current.resetTimer();
+        setIsStartPanelVisible(true);
     }
     
     return (
@@ -112,12 +122,18 @@ function MainGameLayout() {
                 handleAnswer={handleAnswer}
                 bubble={bubbles?.[questionIndex]}
             ></QuestionInput>
-            <EndingPanel
+            <StartCard
+                ref={startCardRef}
+                isOpen={isStartPanelVisible}
+                handleClose={startGame}
+            >
+            </StartCard>
+            <EndCard
                 isOpen={isEndingPanelVisible}
                 bubbles={bubbles}
                 handlePlayAgain={handlePlayAgain}
-            ></EndingPanel>
-            {/*  Opponent Bubble          */}
+            ></EndCard>
+            {/*  Opponent Bubble  */}
         </>
     );
 }

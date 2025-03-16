@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import BubbleState from "../../enums/BubbleState";
 import AnswerCard from "./AnswerCard";
 
-function EndingPanel( {isOpen, bubbles, handlePlayAgain} ) {
+function EndCard( {isOpen, bubbles, handlePlayAgain} ) {
 
     const [tabValue, setTabValue] = useState(0);
     const [results, setResults] = useState({correct: 0, wrong: 0, pass: 0});
@@ -48,11 +48,12 @@ function EndingPanel( {isOpen, bubbles, handlePlayAgain} ) {
     }
 
     useEffect(() => {
+        setTabValue(0);
         setResults(getResults());
     }, [isOpen])
 
     return (
-        isOpen && (
+        ( isOpen && 
             <div
                 style={{
                     position: "fixed",
@@ -304,4 +305,4 @@ function EndingPanel( {isOpen, bubbles, handlePlayAgain} ) {
     );
 }
 
-export default EndingPanel;
+export default EndCard;
