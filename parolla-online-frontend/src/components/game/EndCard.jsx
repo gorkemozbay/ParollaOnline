@@ -217,7 +217,8 @@ function EndCard( {isOpen, bubbles, handlePlayAgain} ) {
                             style={{
                                 display: "grid",
                                 gridTemplateColumns: "repeat(8, 1fr)",
-                                gap: "20px",
+                                columnGap: "10px",
+                                rowGap: "20px",
                                 marginBottom: "26px"
                             }}
                         >
