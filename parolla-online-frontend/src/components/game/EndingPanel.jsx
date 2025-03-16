@@ -3,11 +3,15 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import BubbleState from "../../enums/BubbleState";
+import AnswerCard from "./AnswerCard";
 
 function EndingPanel( {isOpen, bubbles, handlePlayAgain} ) {
 
     const [tabValue, setTabValue] = useState(0);
     const [results, setResults] = useState({correct: 0, wrong: 0, pass: 0});
+    
+    const [isAnswerCardOpen, setIsAnswerCardOpen] = useState(false); 
+    const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0);
 
     const remainingTime = useSelector((state) => state.timer.remainingTime);
     const navigate = useNavigate();
@@ -32,6 +36,15 @@ function EndingPanel( {isOpen, bubbles, handlePlayAgain} ) {
         const minutes = Math.floor(seconds / 60);
         const remainingSeconds = seconds % 60;
         return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`; 
+    }
+
+    const handleAnswerCardOpen = (index) => {
+        setIsAnswerCardOpen(true);
+        setSelectedQuestionIndex(index);
+    }
+
+    const handleAnswerCardClose = () => {
+        setIsAnswerCardOpen(false);
     }
 
     useEffect(() => {
@@ -199,15 +212,96 @@ function EndingPanel( {isOpen, bubbles, handlePlayAgain} ) {
                         </div>
                     }
                     { tabValue == 1  &&  
-                        <div>
-                            Answer Key
+                        <div
+                            style={{
+                                display: "grid",
+                                gridTemplateColumns: "repeat(8, 1fr)",
+                                gap: "20px",
+                                marginBottom: "26px"
+                            }}
+                        >
+                            {bubbles?.map((bubble, index) => {
+                                return (
+                                    <div 
+                                        style={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            width: "40px",
+                                            height: "40px",
+                                            fontWeight: "bold",
+                                            borderRadius: "50%",
+                                            backgroundColor: bubble.bubbleState.color,
+                                            border: "2px black solid",
+                                            cursor: "pointer",
+                                        }}
+                                        onClick={() => {handleAnswerCardOpen(index)}}
+                                    >{bubble.letter}</div>
+                                )
+                            })}
                         </div>
                     }
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            gap: "10px"
+                        }}
+                    >
+                        <button
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                backgroundColor: "#FFD65A",
+                                height: "50px",
+                                width: "200px",
+                                border: "3px solid black",
+                                borderRadius: "15px",
+                                color: "black",
+                                cursor: "pointer",
+                                fontSize: "1em",
+                                fontWeight: "bold",
+                                margin: "10px",
+                                padding: "20px",
+                            }}
+                            onClick={() => {handlePlayAgain()}}
+                        >
+                            Play Again
+                        </button>
+                        <button
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                backgroundColor: "#FFD65A",
+                                height: "50px",
+                                width: "200px",
+                                border: "3px solid black",
+                                borderRadius: "15px",
+                                color: "black",
+                                cursor: "pointer",
+                                fontSize: "1em",
+                                fontWeight: "bold",
+                                margin: "10px",
+                                padding: "20px",
+                            }}
+                            onClick={() => {navigate('/')}}
+                        > 
+                            GoTo Home
+                        </button>
+                    </div>
                 </div>
+                <AnswerCard
+                    isOpen={isAnswerCardOpen}
+                    handleClose={handleAnswerCardClose}
+                    bubble={bubbles[selectedQuestionIndex]}
+                ></AnswerCard>
             </div>
         )
     );
 }
 
 export default EndingPanel;
-

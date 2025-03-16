@@ -20,6 +20,7 @@ function QuestionInput( { handleAnswer, bubble } ) {
             handleAnswerClick();
         } else if (e.key === "Tab") {
             e.preventDefault();
+            setError(false);
             handleAnswer("");
             setAnswer("");
         }
@@ -93,7 +94,6 @@ function QuestionInput( { handleAnswer, bubble } ) {
                         fontWeight: "bold",
                         margin: "10px",
                     }}
-                    className="game-button"
                     onClick={() => handleAnswerClick()}
                     > 
                     {answer == "" ? language.questionHolder.pass : language.questionHolder.answer}
