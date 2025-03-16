@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from "react-redux";
 import { useImperativeHandle, forwardRef } from 'react';
+import { setRemainingTime } from '../../redux/timerSlice';
 
 const Timer = forwardRef(( {initialSeconds, handleTimerExpire, isRunning}, ref ) => {
 
     const [seconds, setSeconds] = useState(initialSeconds);
+    
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!isRunning) return;
+        if (!isRunning) {
+            console.log("Remaning time is set: ", seconds);
+            dispatch(setRemainingTime(seconds));
+            return;
+        }
         // Write remaning val to redux when stop
 
         const interval = setInterval(() => {

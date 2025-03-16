@@ -12,7 +12,6 @@ const languageSlice = createSlice({
             state.language = action.payload
         }
     }
-
 })
 
 export const { setLanguage } = languageSlice.actions;

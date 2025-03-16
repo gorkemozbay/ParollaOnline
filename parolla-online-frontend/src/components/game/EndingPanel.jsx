@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import BubbleState from "../../enums/BubbleState";
 
@@ -8,6 +9,7 @@ function EndingPanel( {isOpen, bubbles, handlePlayAgain} ) {
     const [tabValue, setTabValue] = useState(0);
     const [results, setResults] = useState({correct: 0, wrong: 0, pass: 0});
 
+    const remainingTime = useSelector((state) => state.timer.remainingTime);
     const navigate = useNavigate();
 
     const getResults = () => {
@@ -24,6 +26,12 @@ function EndingPanel( {isOpen, bubbles, handlePlayAgain} ) {
             }
         });
         return {correct, wrong, pass};
+    }
+
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`; 
     }
 
     useEffect(() => {
@@ -64,7 +72,8 @@ function EndingPanel( {isOpen, bubbles, handlePlayAgain} ) {
                         style={{
                             display: "flex",
                             justifyContent: "flex-start",
-                            gap: "30px"
+                            gap: "30px",
+                            marginBottom: "20px"
                         }}
                     >
                         <h2
@@ -90,6 +99,110 @@ function EndingPanel( {isOpen, bubbles, handlePlayAgain} ) {
                             Answer Key
                         </h2>
                     </div>
+                    { tabValue == 0 &&
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "flex-start",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "flex-start",
+                                    alignItems: "center",
+                                    gap: "10px"
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        width: "30px",
+                                        height: "30px",
+                                        backgroundColor: "#16C47F",
+                                        border: "2px solid black",
+                                        margin: "0px 0px 0px 10px",
+
+                                    }}
+                                >
+                                </div>
+                                <h3>
+                                    {results.correct} Correct 
+                                </h3>
+                            </div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "flex-start",
+                                    alignItems: "center",
+                                    gap: "10px"
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        width: "30px",
+                                        height: "30px",
+                                        backgroundColor: "#F93827",
+                                        border: "2px solid black",
+                                        margin: "0px 0px 0px 10px",
+
+                                    }}
+                                >
+                                </div>
+                                <h3>
+                                    {results.wrong} Wrong 
+                                </h3>
+                            </div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "flex-start",
+                                    alignItems: "center",
+                                    gap: "10px"
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        width: "30px",
+                                        height: "30px",
+                                        backgroundColor: "#FFD65A",
+                                        border: "2px solid black",
+                                        margin: "0px 0px 0px 10px",
+
+                                    }}
+                                >
+                                </div>
+                                <h3>
+                                    {results.pass} Pass 
+                                </h3>
+                            </div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "flex-start",
+                                    alignItems: "center",
+                                    gap: "10px"
+                                }}
+                            >
+                                <h3
+                                    style={{
+                                        marginLeft: "10px"
+                                    }}
+                                >
+                                    Remaining Time: {formatTime(remainingTime)}
+                                </h3>
+                            </div>
+                        </div>
+                    }
+                    { tabValue == 1  &&  
+                        <div>
+                            Answer Key
+                        </div>
+                    }
                 </div>
             </div>
         )
