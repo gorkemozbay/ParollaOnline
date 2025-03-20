@@ -42,7 +42,7 @@ function MainGameLayout() {
         if (answer == "bitir") {
             finishGame();
         } else {
-            if (answer == "") {
+            if (answer == "" || answer == "pass") {
                 state = BubbleState.BYPASSED;
             } else if (answer.toLowerCase() == bubbles?.[questionIndex].answer.toLowerCase()) {
                 state = BubbleState.CORRECT; 
