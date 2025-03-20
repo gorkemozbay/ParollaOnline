@@ -1,8 +1,8 @@
 {
     "homepage": {
-        "createLobbyButton": "Oda yarat!",
-        "joinLobbyButton": "Odaya katıl!",
-        "quickplay": "Hızlı oyna!"
+        "createLobbyButton": "Oda yarat",
+        "joinLobbyButton": "Odaya katıl",
+        "quickplay": "Hızlı oyna"
     },
     "createLobbyPage": {
         "roomNumber": "Oda Numarası",

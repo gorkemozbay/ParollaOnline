@@ -1,8 +1,8 @@
 {
     "homepage": {
-        "createLobbyButton": "Create Lobby!",
-        "joinLobbyButton": "Join Lobby!",
-        "quickplay": "Quickplay!"
+        "createLobbyButton": "Create Lobby",
+        "joinLobbyButton": "Join Lobby",
+        "quickplay": "Quickplay"
     },
     "createLobbyPage": {
         "roomNumber": "Room Number",
