@@ -1,132 +1,313 @@
-import { useTheme } from '@mui/material/styles';
-import React from 'react';
-import { Box, Stack, Avatar, Button, Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import { Link } from 'react-router-dom';
 
 import languageENG from '../local/languageENG';
 import languageTR from '../local/languageTR';
 
-import { useSelector } from "react-redux";
+// TODO: divide this component into 3 component
+
+const MAX_PLAYERS = 12; 
 
 const CreateLobbyLayout = () => {
+
+    const [roomNumber, setRoomNumber] = useState()
+    const [players, setPlayers] = useState()
+    const [isCopied, setIsCopied] = useState(false)
+    
+    const navigate = useNavigate();
     
     const languageChoice = useSelector((state) => state.language.language);
     const language = languageChoice === "TR" ? languageTR : languageENG;
 
-    const theme = useTheme();
+    useEffect(() => {
+        initialize();
+    }, [])
 
-    const roomNumber = 12345; 
-    const currentPlayers = 7; 
-    const maxPlayers = 10; 
+    const initialize = () => {
+        generateRoomNumber();
+        generateRandomPlayers();
+    }
 
-    const usernames = Array.from({ length: currentPlayers }, (_, index) => `Player${index + 1}`);
+    const generateRoomNumber = () => {
+        const numberList = []
+        for (let i = 0; i < 6; i++) {
+            let randomNumber;
+            if (i == 0) {
+                randomNumber = getRandomInt(1, 9);
+            } else {
+                randomNumber = getRandomInt(0, 9);
+            }
+            numberList.push(randomNumber);  
+        }
+        setRoomNumber(numberList);
+    }
 
-    const playerAvatars = usernames.map((username, index) => (
-        <Box key={index} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Avatar sx={{ width: 70, height: 70 }}>
-                <PersonIcon />
-            </Avatar>
-            <Typography variant="body2" sx={{ marginTop: 1 }}>
-                {username}
-            </Typography>
-        </Box>
+    const generateRandomPlayers = () => {
+        const numberOfPlayers = getRandomInt(1, 12);
+        const players = Array.from({ length: numberOfPlayers }, (_, index) => `Player-${index + 1}`);
+        setPlayers(players)
+    }
+
+    const getRandomInt = (min, max) => { // TODO: goes to util
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    const handleCopy = () => {
+        const roomNumberText = roomNumber.join('');
+        navigator.clipboard.writeText(roomNumberText);
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000);
+    }
+
+    const playerAvatars = players?.map((player, index) => (
+        <div 
+            key={index} 
+            style={{
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center'
+                }}>
+            <Avatar 
+                sx={{  
+                    width: 70, 
+                    height: 70 
+                }}> 
+                <PersonIcon /> {/* TODO: customized icons */}
+            </Avatar>  
+            <h4
+                style={{
+                    marginTop: "10px"
+                }}
+            >
+                {player}
+            </h4>
+        </div>
     ));
     
     return (
-        <Box sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Box
-                sx={{
-                    backgroundColor: theme => theme.palette.background.default,
-                    border: theme => `2px solid ${theme.palette.colors.blue}`,
-                    boxShadow: `0px 4px 6px ${theme.palette.colors.blue}`,
-                    color: theme => theme.palette.colors.purple,
-                    padding: 1,
-                    marginBottom: 3,
-                    borderRadius: 10,
-                    textAlign: 'center',
-                    width: 350,
-                    height: 'auto'
+        <div 
+            style={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center',
+                gap: "30px",
+                fontFamily: "Chevy, cursive",
+                color: "black",
+                marginTop: "-30px" // TODO: fix
+            }}>
+            {/* Room Number */}
+            <div
+                style={{
+                    border: "4px solid black",
+                    borderRadius: "30px",
+                    textAlign: "center",
+                    padding: "10px 30px 20px 30px",
                 }}
             >
-                <Typography variant="h6" sx={{ color: theme => theme.palette.colors.blue }}>
+                <h2 
+                    style={{
+                        margin: "0px"
+                    }}
+                >
                    {language.createLobbyPage.roomNumber}
-                </Typography>
-
-                <Typography variant="h4" mb={1} sx={{ color: theme => theme.palette.colors.blue }}>
-                    {roomNumber}
-                </Typography>
-
-                {/* Buttons below the room number */}
-                <Stack direction="row" spacing={4} justifyContent="center">
-                    <Button variant="contained" sx={{ width: 100, backgroundColor: theme => theme.palette.colors.purple }}>
+                </h2>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                    }}
+                >
+                    {roomNumber?.map((number) => {
+                        return (
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    marginBottom: "30px"
+                                }}
+                            >
+                                <h1
+                                    style={{
+                                        margin: "20px 30px 5px 30px"
+                                    }}
+                                >
+                                    {number}
+                                </h1>
+                                <div
+                                    style={{
+                                        width: "50px",
+                                        height: "5px",
+                                        margin: "0px 30px 0px 30px",
+                                        backgroundColor: "black"
+                                    }}
+                                >    
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+                { /* Buttons: Copy + Share */}
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        gap: "20px",
+                    }}
+                >
+                    <button
+                        style={{
+                            backgroundColor: "#FFD65A",
+                            height: "50px",
+                            border: "3px solid black",
+                            borderRadius: "15px",
+                            color: "black",
+                            cursor: "pointer",
+                            fontSize: "1.5em",
+                            fontWeight: "bold",
+                            padding: "25px 80px",
+                            display: "flex",
+                            alignItems: "center",
+                        }}
+                        onClick={handleCopy}
+                    >
                         {language.createLobbyPage.copy}
-                    </Button>
-                    <Button variant="contained" sx={{ width: 100, backgroundColor: theme => theme.palette.colors.purple }}>
+                    </button>
+                    <button
+                        style={{
+                            backgroundColor: "#FFD65A",
+                            height: "50px",
+                            border: "3px solid black",
+                            borderRadius: "15px",
+                            color: "black",
+                            cursor: "pointer",
+                            fontSize: "1.5em",
+                            fontWeight: "bold",
+                            padding: "25px 80px",
+                            display: "flex",
+                            alignItems: "center",
+                        }}
+                        onClick={() => {}}
+                    >
                         {language.createLobbyPage.share}
-                    </Button>
-                </Stack>
-            </Box>
+                    </button>
+                </div>
+                <h3  
+                    style={{
+                        margin: "5px 250px 0px 0px",
+                        textShadow: "0px 0px 20px rgba(0, 0, 0, 0.5)",
+                        visibility: isCopied ? "visible" : "hidden",
+                    }}
+                >
+                    copied
+                </h3>
+            </div>
 
-            {/* Player avatars box */}
-            <Box
-                sx={{
-                    backgroundColor: theme => theme.palette.background.default,
-                    border: theme => `2px solid ${theme.palette.colors.green}`,
-                    boxShadow: `0px 4px 6px ${theme.palette.colors.green}`,
-                    padding: 2,
-                    borderRadius: 5,
-                    textAlign: 'center',
-                    marginBottom: 3,
+            {/* Players */} 
+            <div
+                style={{
                     position: 'relative',
-                    width: 400,
-                    height: 'auto', // Allow height to adjust automatically based on content
-                    display: 'flex',
-                    flexDirection: 'column', // Stack children vertically
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    border: "4px solid black",
+                    borderRadius: "30px",
+                    textAlign: 'center',
+                    padding: "15px 30px 30px 25px",
                 }}
             >
-                <Typography variant="h6">Players</Typography>
-                {/* Player count indicator */}
-                <Typography
-                    sx={{
-                        position: 'absolute', // Position within the parent container
-                        top: 10,
-                        right: 10,
-                        color: theme => theme.palette.colors.green,  
+                <h2
+                    style={{
+                        marginTop: "0px",
+                        marginBottom: "30px"
+                    }}
+                >
+                    Players
+                </h2>
+                <h3
+                    style={{
+                        position: 'absolute', 
+                        top: 0,
+                        right: 20, 
                         fontWeight: 'bold',
                     }}
                 >
-                    {currentPlayers}/{maxPlayers}
-                </Typography>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexWrap: 'wrap', // Allow avatars to wrap to the next line
-                        justifyContent: 'center',
-                        gap: 2, // Add space between the avatars
+                    {players?.length} / {MAX_PLAYERS}
+                </h3>
+                <div
+                    style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(6, 1fr)",
+                        rowGap: "10px",
+                        columnGap: "70px"
                     }}
                 >
                     {playerAvatars}
-                </Box>
-            </Box>
+                </div>
+            </div>
 
             {/* Buttons */}
-            <Stack direction="row" spacing={2} justifyContent="center">
-                <Link to="/">
-                    <Button variant="contained" sx={{ width: 150, borderRadius: 3, backgroundColor: theme => theme.palette.colors.green }}>
-                        {language.createLobbyPage.goBack}
-                    </Button>
-                </Link>
-                <Button variant="contained" sx={{ width: 150, borderRadius: 3, backgroundColor: theme => theme.palette.colors.green }}>
+            <div
+                style={{
+                    display: "flex",
+                    gap: "20px"
+                }}
+            >
+                <button 
+                    style={{
+                            backgroundColor: "#FFD65A",
+                            height: "50px",
+                            border: "3px solid black",
+                            borderRadius: "15px",
+                            color: "black",
+                            cursor: "pointer",
+                            fontSize: "1.5em",
+                            fontWeight: "bold",
+                            padding: "25px 70px",
+                            display: "flex",
+                            alignItems: "center",
+                    }}
+                    onClick={() => {navigate("/")}}
+                >
+                    {language.createLobbyPage.goBack}
+                </button>
+                <button 
+                    style={{
+                            backgroundColor: "#FFD65A",
+                            height: "50px",
+                            border: "3px solid black",
+                            borderRadius: "15px",
+                            color: "black",
+                            cursor: "pointer",
+                            fontSize: "1.5em",
+                            fontWeight: "bold",
+                            padding: "25px 70px",
+                            display: "flex",
+                            alignItems: "center",
+                    }}
+                    onClick={() => {}}
+                >
                     {language.createLobbyPage.settings}
-                </Button>
-                <Button variant="contained" sx={{ width: 150, borderRadius: 3, backgroundColor: theme => theme.palette.colors.green }}>
+                </button>
+                <button 
+                    style={{
+                            backgroundColor: "#FFD65A",
+                            height: "50px",
+                            border: "3px solid black",
+                            borderRadius: "15px",
+                            color: "black",
+                            cursor: "pointer",
+                            fontSize: "1.5em",
+                            fontWeight: "bold",
+                            padding: "25px 70px",
+                            display: "flex",
+                            alignItems: "center",
+                    }}
+                    onClick={() => {navigate("/quick-play")}}
+                >
                     {language.createLobbyPage.startGame}
-                </Button>
-            </Stack>
-        </Box>
+                </button>
+            </div>
+        </div>
     );
 };
 
