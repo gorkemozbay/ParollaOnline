@@ -1,9 +1,10 @@
 import { React, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import languageENG from '../local/languageENG';
-import languageTR from '../local/languageTR';
+import languageENG from '../../local/languageENG';
+import languageTR from '../../local/languageTR';
 import { useDispatch, useSelector } from "react-redux";
-import { setLanguage } from "../redux/languageSlice";
+import { setLanguage } from "../../redux/languageSlice";
+import styles from './HomepageLayout.module.css';
 
 const HomepageLayout = () => {
 
@@ -19,13 +20,7 @@ const HomepageLayout = () => {
 
     return (
         <>
-            <div 
-                style={{
-                    position: "absolute",
-                    top: "16px",
-                    right: "32px"
-                }}
-            >
+            <div className={styles.languageSelect}>
                 <select
                     style={{ 
                         backgroundColor: "white",
@@ -40,8 +35,8 @@ const HomepageLayout = () => {
                     value={languageChoice}
                     onChange={(e) => dispatch(setLanguage(e.target.value))}
                 >
-                    <option  value="ENG">ENG</option >
-                    <option  value="TR">TR</option >
+                    <option value="ENG">ENG</option >
+                    <option value="TR">TR</option >
                 </select>
             </div>
             <div 
@@ -62,55 +57,19 @@ const HomepageLayout = () => {
                 >
                 </img>
                 <button
-                    style={{
-                        backgroundColor: "#FFD65A" ,
-                        height: "50px",
-                        width: "600px",
-                        border: "2px solid black",
-                        borderRadius: "10px",
-                        color: "black",
-                        cursor: "pointer",
-                        fontSize: "1.2em",
-                        fontWeight: "bold",
-                        margin: "10px",
-                        fontFamily: "Chevy, cursive",
-                    }}
+                    className= {styles.homeButton}
                     onClick={() => { navigate('/create-lobby') }}
                 >
                     {language.homepage.createLobbyButton}
                 </button>
                 <button
-                    style={{
-                        backgroundColor: "#FFD65A" ,
-                        height: "50px",
-                        width: "600px",
-                        border: "2px solid black",
-                        borderRadius: "10px",
-                        color: "black",
-                        cursor: "pointer",
-                        fontSize: "1.2em",
-                        fontWeight: "bold",
-                        margin: "10px",
-                        fontFamily: "Chevy, cursive",
-                    }}
-                    onClick={() => {}}
+                    className= {styles.homeButton}
+                    onClick={() => {}}  // TO-DO: implement
                 >
                     {language.homepage.joinLobbyButton}
                 </button>
                 <button
-                    style={{
-                        backgroundColor: "#FFD65A" ,
-                        height: "50px",
-                        width: "600px",
-                        border: "2px solid black",
-                        borderRadius: "10px",
-                        color: "black",
-                        cursor: "pointer",
-                        fontSize: "1.2em",
-                        fontWeight: "bold",
-                        margin: "10px",
-                        fontFamily: "Chevy, cursive",
-                    }}
+                    className= {styles.homeButton}
                     onClick={() => { navigate('/quick-play') }}
                 >
                     {language.homepage.quickplay}

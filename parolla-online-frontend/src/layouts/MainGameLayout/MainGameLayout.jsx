@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import BubbleChain from "../components/game/BubbleChain";
-import Timer from "../components/game/Timer";
-import QuestionHolder from "../components/game/QuestionHolder"
-import BubbleModel from "../models/BubbleModel";
-import BubbleState from "../enums/BubbleState";
-import QuestionInput from "../components/game/QuestionInput";
-import EndCard from "../components/game/EndCard";
-import StartCard from "../components/game/StartCard";
+import BubbleChain from "../../components/game/BubbleChain";
+import Timer from "../../components/game/Timer";
+import QuestionHolder from "../../components/game/QuestionHolder"
+import QuestionInput from "../../components/game/QuestionInput";
+import EndCard from "../../components/game/EndCard";
+import StartCard from "../../components/game/StartCard";
+import BubbleModel from "../../models/BubbleModel";
+import BubbleState from "../../enums/BubbleState";
 
 
 function MainGameLayout() {

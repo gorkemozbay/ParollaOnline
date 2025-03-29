@@ -1,0 +1,66 @@
+
+.lobbyContainer {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    gap: 30px;
+    font-family: Chevy, cursive;
+    color: black;
+    margin-top: -30px;
+}
+
+.roomNumberContainer {
+    border: 4px solid black;
+    border-radius: 30px;
+    text-align: center;
+    padding: 10px 30px 20px 30px;
+}
+
+.roomNumberButtonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.roomNumberCopyText {
+    margin: 5px 250px 0px 0px;
+    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+}
+
+.playerContainer {
+    position: relative;
+    border: 4px solid black;
+    border-radius: 30px;
+    text-align: center;
+    padding: 15px 30px 30px 25px;
+}
+
+.playerAvatarContainer {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    row-gap: 10px;
+    column-gap: 70px;
+}
+
+.actionButtonContainer {
+    display: flex;
+    gap: 20px;
+}
+
+.lobbyButton {
+    background-color: #FFD65A;
+    height: 50px;
+    border: 3px solid black;
+    border-radius: 15px;
+    color: black;
+    cursor: pointer;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 25px 80px;
+    display: flex;
+    align-items: center;
+}
+
+.lobbyButton:hover {
+    background-color: hsl(45, 100%, 58%);;
+}
